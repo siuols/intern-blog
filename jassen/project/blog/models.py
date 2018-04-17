@@ -33,7 +33,7 @@ class Post(models.Model):
     Status = models.CharField(max_length=9, choices=POST_STATUS, blank=True, default=True)
 
     def __str__(self):
-        return '{}'.format(self.Title)
+        return '{}'.format(self.title)
 
 class Category(models.Model):
     category_title = models.CharField(max_length=150)
