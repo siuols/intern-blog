@@ -1,8 +1,11 @@
+
 {% block content %} 
 {% for obj in post %}
-
-{{obj.title}}
-
+			<h1>{{obj.blog.heading}}</h1>
+		 	<h2>{{obj.blog.sub_Heading}}</h2>
+			<h3>{{obj.title}}</h3>
+ 	 		<p><img src="{{  obj.MEDIA_URL }}{{obj.banner_Photo.url}}" width="200px"></p>
+ 			<h3><a href="/grades/student/Year/"> </a></h3>
 {% endfor %}
  
  {% endblock %}
