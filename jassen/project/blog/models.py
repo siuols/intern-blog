@@ -1,43 +1,46 @@
 from django.db import models
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 # Create your models here
+POST_STATUS = (
+    ('published', 'Published'),
+    ('draft', 'Draft'),
+    ('hidden', 'Hidden'),
+)
 
-class blog(models.Model):
-    Heading = models.CharField(max_length=150)
-    Sub_Heading = models.CharField(max_length=150)
+class Blog(models.Model):
+    heading = models.CharField(max_length=150)
+    sub_Heading = models.CharField(max_length=150)
     
     def __str__(self):
         return '{}'.format(self.Heading)
 
-class post(models.Model):
-    Title = models.CharField(max_length=150)
-    Sub_Title = models.CharField(max_length=150)
-    Banner_Photo = models.ImageField(upload_to = 'static/media')
-    Body = models.TextField()
-    Author = models.CharField(max_length=150)
-    Date = models.DateTimeField(auto_now_add=True)
-    Date_modified = models.DateTimeField(auto_now_add=True)
-    Blog = models.ForeignKey(blog, on_delete=models.CASCADE) 
-    Category = models.ForeignKey('category', on_delete=models.CASCADE)
-    Tags = models.ForeignKey('tags', on_delete=models.CASCADE)
-    status = (
-        ('Published', 'Published'),
-        ('Draft', 'Draft'),
-        ('Hidden', 'Hidden'),
-    )
-    Status            = models.CharField(max_length=6, choices=status, blank=True, default=True)
+class Post(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    sub_Title = models.CharField(max_length=150)
+    banner_Photo = models.ImageField(upload_to = 'static/media')
+    body = models.TextField()
+    author = models.CharField(max_length=150)
+    date = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now_add=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE) 
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    tags = models.ManyToManyField("Post",related_name="Tags")
+    Status = models.CharField(max_length=6, choices=POST_STATUS, blank=True, default=True)
 
     def __str__(self):
         return '{}'.format(self.Title)
 
 
-class category(models.Model):
+class Category(models.Model):
     category_title = models.CharField(max_length=150)
 
     def __str__(self):
-        return '{}'.format(self.category_title)
+        return '{}'.format(self.category)
 
-class tags(models.Model):
+class Tags(models.Model):
     tags_title = models.CharField(max_length=150)
 
     def __str__(self):
