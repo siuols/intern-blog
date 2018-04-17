@@ -1,13 +1,13 @@
 {% extends "blog/base.html" %}
 
-{% block head_title %}List | {{ block.super }}{% endblock head_title %}
+{% block head_title %}Post list | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-    <h2>Index</h2>
+    <h2>Post List</h2>
     <ul>
         {% if object_list %}
-            {% for head in object_list %}
-                <li>{{ head.heading }}</li>
+            {% for post in object_list %}
+                <li>{{ post.post_list }}</li>
             {% endfor %}
         {% else %}
             <p>No post</p>

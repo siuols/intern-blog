@@ -2,26 +2,22 @@ from django.shortcuts import render
 
 from django.views import View
 
-from .models import Index, Category, Post, Tag
+from .models import Index, Post
 
 # Create your views here.
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
-        index = Index.objects.all()#.order_by('-published_date')[5]
+        index = Index.objects.all().order_by('-date_created')
         context = {
             'object_list': index,
         }
         return render(request, "blog/index.html", context)
 
-# class IndexView(View):
-#     template_name = 'blog/index.html'
-#     def get_queryset(self):
-#         return Index.objects.all().order_by('-date_created')[:5]
-
-
-
-# class IndexView(View):
-#     template_name = 
-#     def get(self, request, *args, **kwargs):
-#         return HttpResponse('Hello, World!')
+class PostView(View):
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.all().order_by('-date_created')
+        context = {
+            'object_list': post,
+        }
+        return render(request, "blog/post_list.html", context)
