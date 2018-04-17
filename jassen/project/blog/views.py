@@ -22,7 +22,7 @@ class PostView2(generic.ListView):
         query = self.request.GET.get('q')
         students = Post.objects.filter(status__contains='draft',)
         context = {'post':post,}
-        return render(request, "Post_list.html", context)
+        return render(request, "Post1_list.html", context)
 
 
 
@@ -31,6 +31,6 @@ class PostView3(generic.ListView):
         query = self.request.GET.get('q')
         students = Post.objects.filter(status__contains='hidden',)
         context = {'post':post,}
-        return render(request, "Post_list.html", context)
+        return render(request, "Post2_list.html", context)
 
 

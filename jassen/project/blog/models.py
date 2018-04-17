@@ -1,10 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse 
-from django.shortcuts import redirect
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
+
 User = settings.AUTH_USER_MODEL
 
 # Create your models here
@@ -19,7 +16,7 @@ class Index(models.Model):
     sub_Heading = models.CharField(max_length=150)
     
     def __str__(self):
-        return '{}'.format(self.Heading)
+        return '{}'.format(self.heading)
 
 class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -32,8 +29,8 @@ class Post(models.Model):
     date_modified = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(Index, on_delete=models.CASCADE) 
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    tags = models.ManyToManyField("Post",related_name="Tags")
-    Status = models.CharField(max_length=6, choices=POST_STATUS, blank=True, default=True)
+    tags = models.ManyToManyField("Tags",related_name="Post")
+    Status = models.CharField(max_length=9, choices=POST_STATUS, blank=True, default=True)
 
     def __str__(self):
         return '{}'.format(self.Title)
@@ -42,7 +39,7 @@ class Category(models.Model):
     category_title = models.CharField(max_length=150)
 
     def __str__(self):
-        return '{}'.format(self.category)
+        return '{}'.format(self.category_title)
 
 class Tags(models.Model):
     tags_title = models.CharField(max_length=150)
