@@ -1,5 +1,10 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse 
+from django.shortcuts import redirect
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 User = settings.AUTH_USER_MODEL
 
 # Create your models here
@@ -9,7 +14,7 @@ POST_STATUS = (
     ('hidden', 'Hidden'),
 )
 
-class Blog(models.Model):
+class Index(models.Model):
     heading = models.CharField(max_length=150)
     sub_Heading = models.CharField(max_length=150)
     
@@ -25,14 +30,13 @@ class Post(models.Model):
     author = models.CharField(max_length=150)
     date = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now_add=True)
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE) 
+    blog = models.ForeignKey(Index, on_delete=models.CASCADE) 
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     tags = models.ManyToManyField("Post",related_name="Tags")
     Status = models.CharField(max_length=6, choices=POST_STATUS, blank=True, default=True)
 
     def __str__(self):
         return '{}'.format(self.Title)
-
 
 class Category(models.Model):
     category_title = models.CharField(max_length=150)
