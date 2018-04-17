@@ -10,6 +10,8 @@ class Index(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
     heading                 = models.CharField(max_length=120)
     sub_heading             = models.CharField(max_length=120)
+    date_created            = models.DateTimeField(auto_now_add=True)
+    date_modified           = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{}'.format(self.heading)
@@ -17,6 +19,8 @@ class Index(models.Model):
 class Tag(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
     tag                     = models.CharField(max_length=120)
+    date_created            = models.DateTimeField(auto_now_add=True)
+    date_modified           = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{}'.format(self.tag)
@@ -24,6 +28,8 @@ class Tag(models.Model):
 class Category(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
     category                = models.CharField(max_length=120)
+    date_created            = models.DateTimeField(auto_now_add=True)
+    date_modified           = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{}'.format(self.category)
