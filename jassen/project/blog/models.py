@@ -18,8 +18,8 @@ class post(models.Model):
     Date = models.DateTimeField(auto_now_add=True)
     Date_modified = models.DateTimeField(auto_now_add=True)
     Blog = models.ForeignKey(blog, on_delete=models.CASCADE) 
-    Category = models.ForeignKey(category, on_delete=models.CASCADE)
-    Tags = models.ForeignKey(tags, on_delete=models.CASCADE)
+    Category = models.ForeignKey('category', on_delete=models.CASCADE)
+    Tags = models.ForeignKey('tags', on_delete=models.CASCADE)
     status = (
         ('Published', 'Published'),
         ('Draft', 'Draft'),
@@ -31,3 +31,14 @@ class post(models.Model):
         return '{}'.format(self.Title)
 
 
+class category(models.Model):
+    category_title = models.CharField(max_length=150)
+
+    def __str__(self):
+        return '{}'.format(self.category_title)
+
+class tags(models.Model):
+    tags_title = models.CharField(max_length=150)
+
+    def __str__(self):
+        return '{}'.format(self.tags_title)
