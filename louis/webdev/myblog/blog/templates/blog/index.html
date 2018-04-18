@@ -14,7 +14,9 @@
                 <p>{{ post.title }}</p>
                 <p>{{ post.author }}</p>
                 <p><small>{{ post.date_created }}</small></p>
-                <p>{{ post.tags }}</p>
+                {% for tag in head.post.tags_set.all %}
+                    <p>{{ post.tags }}</p>
+                {% endfor %}
                 <p>{{ post.category }}</p>
                 <p>---------------------------------------------</p>
             {% endfor %}

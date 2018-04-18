@@ -15,8 +15,8 @@ class IndexView(View):
         return render(request, "blog/index.html", context)
 
 class PostView(View):
-    def get(self, request, pk, *args, **kwargs):
-        post = Post.objects.filter(slug=title).order_by('-date_created')
+    def get(self, request, post_id, *args, **kwargs):
+        post = Post.objects.filter(id=post_id).order_by('-date_created')
         context = {
             'object_list': post,
         }
