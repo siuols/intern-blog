@@ -1,16 +1,24 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 
 {% block head_title %}List | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-    <h2>Index</h2>
-    <ul>
-        {% if object_list %}
-            {% for head in object_list %}
-                <li>{{ head.heading }}</li>
+
+    {% if index %}
+        <p>Index</p>
+        {% for head in index %}
+            <h1>{{ head.heading }}</h1>
+            <h5>{{ head.sub_heading }}</h5>
+                <p></p>
+            {% for post in head.post_set.all %}
+                <p>{{ post.title }}</p>
+                <p>{{ post.author }}</p>
+                <p><small>{{ post.date_created }}</small></p>
+                <p>{{ post.tags }}</p>
+                <p>{{ post.category }}</p>
             {% endfor %}
-        {% else %}
-            <p>No post</p>
-        {% endif %}
-    </ul>
+        {% endfor %}
+    {% else %}
+        <p>No post</p>
+    {% endif %}
 {% endblock %}

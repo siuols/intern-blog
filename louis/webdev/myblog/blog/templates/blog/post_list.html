@@ -1,16 +1,22 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 
 {% block head_title %}Post list | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
     <h2>Post List</h2>
-    <ul>
-        {% if object_list %}
-            {% for post in object_list %}
-                <li>{{ post.post_list }}</li>
-            {% endfor %}
-        {% else %}
-            <p>No post</p>
-        {% endif %}
-    </ul>
+    {% if object_list %}
+        {% for post in object_list %}
+            <h1>{{ post.post_list.heading }}</h1>
+            <h5>{{ post.post_list.sub_heading }}</h5>
+            <img src="{{ post.banner_photo.url }}">
+            <p>{{ post.author }}</p>
+            <p><small>{{ post.date_created }}, Updated {{ post.date_modified|timesince }} ago</small></p>
+            <p>{{ post.tags }}</p>
+            <p>{{ post.category }}</p>
+            <p>{{ post.body }}</p>
+            <p>{{ post.status }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No post</p>
+    {% endif %}
 {% endblock %}

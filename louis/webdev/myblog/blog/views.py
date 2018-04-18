@@ -7,16 +7,16 @@ from .models import Index, Post
 # Create your views here.
 
 class IndexView(View):
-    def get(self, request, *args, **kwargs):
-        index = Index.objects.all().order_by('-date_created')
+    def get(self, request, pk, *args, **kwargs):
+        index = Index.objects.filter(pk=pk).order_by('-date_created')
         context = {
-            'object_list': index,
+            'index': index,
         }
         return render(request, "blog/index.html", context)
 
 class PostView(View):
-    def get(self, request, *args, **kwargs):
-        post = Post.objects.all().order_by('-date_created')
+    def get(self, request, pk, *args, **kwargs):
+        post = Post.objects.filter(slug=title).order_by('-date_created')
         context = {
             'object_list': post,
         }
