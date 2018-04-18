@@ -11,9 +11,7 @@
       <small> Posted on: {{ obj.date|timesince }} ago</small></p>
       <p><img src="{{ obj.MEDIA_URL }}{{obj.banner_photo.url}}" width="570px"></p>       
       <p class="p">{{obj.body}}</p>
-
-          <small>Date Modified: {{obj.date_modified }} </small>
-  
+      <small>Date Modified: {{obj.date_modified }} </small>
     </div>
   {% endfor %}
  {% endblock %}
