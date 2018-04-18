@@ -4,13 +4,14 @@
 {% block content %} 
   {% for obj in post %}
     <div class="card">
-      <h1>{{obj.blog.heading}}</h1>
-      <h2>{{obj.blog.sub_Heading}}</h2>
+      <h1 class="title">{{obj.blog.heading}}</h1>
+      <small class="sub_heading">{{obj.blog.sub_heading}}</small> 
       <h3>{{obj.title}}</h3>
-      <strong><p>Posted By:{{obj.author}}</p></strong> 
-      <small> Posted on {{ obj.date|timesince }} ago</small></p>
-      <p><img src="{{ obj.MEDIA_URL }}{{obj.banner_photo.url}}" width="500px"></p>
-      <h3><a href=" "> </a></h3>
+      <p><strong>Posted By:</strong> {{obj.author}}</p>
+      <small> Posted on: {{ obj.date|timesince }} ago</small></p>
+      <p><img src="{{obj.banner_photo.url}}" width="570px"></p>       
+      <p class="p">{{obj.body}}</p>
+      <small>Date Modified: {{obj.date_modified }} </small>
     </div>
   {% endfor %}
  {% endblock %}
