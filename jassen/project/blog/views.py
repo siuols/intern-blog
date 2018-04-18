@@ -12,22 +12,6 @@ from django.views import generic, View
 
 class PostView1(View):
     def get(self, request):
-        post = Post.objects.filter(Status__contains='published')
+        post = Post.objects.all()
         context = {'post':post,}
         return render(request, "Post_list.html", context)
-
-class PostView2(generic.ListView):
-    def get(self, request): 
- 
-        post = Post.objects.filter(Status__contains='draft',)
-        context = {'post':post,}
-        return render(request, "Post_list.html", context)
-
-
-class PostView3(generic.ListView):
-    def get(self, request): 
-        post = Post.objects.filter(Status__contains='hidden',)
-        context = {'post':post,}
-        return render(request, "Post2_list.html", context)
-
-
