@@ -1,11 +1,16 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<title>Post</title>
 {% block content %} 
   {% for obj in post %}
     <div class="card">
       <h1>{{obj.blog.heading}}</h1>
       <h2>{{obj.blog.sub_Heading}}</h2>
       <h3>{{obj.title}}</h3>
-      <p><img src="{{  obj.MEDIA_URL }}{{obj.banner_Photo.url}}" width="200px"></p>
-      <h3><a href="/grades/student/Year/"> </a></h3>
+      <strong><p>Posted By:{{obj.user}}</p></strong> 
+      <small> Posted on {{ obj.date|timesince }} ago</small></p>
+      <p><img src="{{ obj.MEDIA_URL }}{{obj.banner_photo.url}}" width="500px"></p>
+      <h3><a href=" "> </a></h3>
     </div>
   {% endfor %}
  {% endblock %}

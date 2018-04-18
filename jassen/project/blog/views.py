@@ -10,8 +10,8 @@ from .models import Post,Category,Tags,Index
 from django.views import generic, View
 # Create your views here.
 
-class PostView1(View):
+class PostView(View):
     def get(self, request):
-        post = Post.objects.all()
+        post = Post.objects.all().order_by('-date')
         context = {'post':post,}
         return render(request, "Post_list.html", context)
