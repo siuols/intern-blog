@@ -11,7 +11,8 @@ from django.views import generic, View
 # Create your views here.
 
 class PostView(View):
-    def get(self, request):
-        post = Post.objects.all().order_by('-date')
+    def get(self, request, post_id, *args, **kwargs):
+        post = Post.objects.filter(pk=post_id).order_by('-date')
         context = {'post':post,}
         return render(request, "Post_list.html", context)
+ 

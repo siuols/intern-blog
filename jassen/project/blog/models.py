@@ -28,7 +28,7 @@ class Post(models.Model):
     date_modified = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(Index, on_delete=models.CASCADE) 
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    tags = models.ManyToManyField("Tags",related_name="Post")
+    tags = models.ManyToManyField("tags",related_name="Tags")
     status = models.CharField(max_length=9, choices=POST_STATUS, blank=True, default=True)
 
     def __str__(self):
