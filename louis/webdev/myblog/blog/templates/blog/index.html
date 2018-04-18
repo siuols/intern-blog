@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head_title %}List | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+
+    {% if index %}
+        <p>Index</p>
+        {% for head in index %}
+            <h1>{{ head.heading }}</h1>
+            <h5>{{ head.sub_heading }}</h5>
+                <p></p>
+            {% for post in head.post_set.all %}
+                <p>{{ post.title }}</p>
+                <p>{{ post.author }}</p>
+                <p><small>{{ post.date_created }}</small></p>
+                {% for tag in head.post.tags_set.all %}
+                    <p>{{ post.tags }}</p>
+                {% endfor %}
+                <p>{{ post.category }}</p>
+                <p>---------------------------------------------</p>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>No post</p>
+    {% endif %}
+{% endblock %}
