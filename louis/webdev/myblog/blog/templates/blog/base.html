@@ -1,11 +1,9 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang=en>
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-        
         <title>{% block head_title %}My aBlog{% endblock head_title %}</title>
-        
     </head>
     <body>
         {% block content %}{% endblock content %}
