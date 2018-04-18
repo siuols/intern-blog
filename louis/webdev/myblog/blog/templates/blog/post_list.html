@@ -11,8 +11,12 @@
             <img src="{{ post.banner_photo.url }}">
             <p>{{ post.author }}</p>
             <p><small>{{ post.date_created }}, Updated {{ post.date_modified|timesince }} ago</small></p>
-            {% for tag in post.object_list %}
-                <p>{{ post.tags }}</p>
+            {% for tag in post.tags.all %}
+                {% if forloop.last %}
+                    <p>{{ tag }}</p>
+                {% else %}
+                    <p>{{ tag }},</p>
+                {% endif %}
             {% endfor %}
             <p>{{ post.category }}</p>
             <p>{{ post.body }}</p>
