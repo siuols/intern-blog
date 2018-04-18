@@ -1,7 +1,11 @@
 {% load static %}
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 <title>Post</title>
-{% block content %} 
+ {% block content %} 
   {% for obj in post %}
     <div class="card">
       <h1 class="title">{{obj.blog.heading}}</h1>
@@ -9,9 +13,11 @@
       <h3>{{obj.title}}</h3>
       <p><strong>Posted By:</strong> {{obj.author}}</p>
       <small> Posted on: {{ obj.date|timesince }} ago</small></p>
-      <p><img src="{{obj.banner_photo.url}}" width="570px"></p>       
+      <img src="{{obj.banner_photo.url}}">
       <p class="p">{{obj.body}}</p>
       <small>Date Modified: {{obj.date_modified }} </small>
+      <small>{{obj.tags}}</small>
     </div>
   {% endfor %}
  {% endblock %}
+</html> 
