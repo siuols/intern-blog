@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block head_title %}List | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 
     {% if index %}
         <p>Index</p>
