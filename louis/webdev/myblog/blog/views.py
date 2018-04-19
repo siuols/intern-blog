@@ -8,6 +8,8 @@ from .models import Index, Post
 
 # Create your views here.
 
+# BookInstance.objects.filter(status__exact='o').order_by('due_back')
+
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.get(pk=pk)

@@ -59,3 +59,11 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-id']
+
+class Comment(models.Model):
+    author                  = models.CharField(max_length='120')
+    content                 = models.TextField()
+    date_created            = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{}'.format(self.author)
