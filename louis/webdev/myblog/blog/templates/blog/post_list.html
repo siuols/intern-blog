@@ -6,8 +6,8 @@
   <h2>Post List</h2>
   {% if object_list %}
     {% for post in object_list %}
-      <h1>{{ post.post_list.heading }}</h1>
-      <h5>{{ post.post_list.sub_heading }}</h5>
+      <h1>{{ post.index.heading }}</h1>
+      <h5>{{ post.index.sub_heading }}</h5>
       <img src="{{ post.banner_photo.url }}">
       <p>{{ post.author }}</p>
       <p><small>{{ post.date_created }}, Updated {{ post.date_modified|timesince }} ago</small></p>

@@ -29,9 +29,10 @@ class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.filter(pk=pk).order_by('-date_created')
 
-    post_list = Post.objects.post().order_by('-date_created')
+    post = Post.objects.all()
 
-    paginator = Paginator(post_list, 1)
+    paginate_by = 1
+    paginator = Paginator(post, 1)
 
     page = request.GET.get('page')
 

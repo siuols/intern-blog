@@ -43,23 +43,25 @@ STATUS_CHOICES = (
     ('hidden', 'Hidden')
 )
 
-class PostManager(models.Manager):
-    def post(self, user, post_list_obj):
-        if post_list_obj.parent:
-            og_parent = post_list_obj.parent
-        else:
-            og_parent = post_list_obj
+# class PostManager(models.Manager):
+#     def post(self, index_obj):
+#         if index_obj.index:
+#             og_parent = index_obj.index
+#         else:
+#             og_parent = index_obj
 
+#         qs = self.get_queryset().filter(index=og_parent)
 
-        qs = self.get_queryset().filter(user=user, )
+#         if qs.exits():
+#             return None
 
-        obj = self.model(
-                post_list = og_parent,
-                # user = user,
-                post_id = post_list.post_id,
-            )
-        obj.save()
-        return obj
+#         obj = self.model(
+#                 index = og_parent,
+#                 user = user,
+#                 post_id = index_obj.index,
+#             )
+#         obj.save()
+#         return obj
 
 class Post(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -75,7 +77,7 @@ class Post(models.Model):
     body                    = models.TextField(max_length=1000)
     status                  = models.CharField(max_length=9, choices=STATUS_CHOICES, default='published',)
 
-    objects                 = PostManager()
+    # objects                 = PostManager()
 
     def __str__(self):
         return '{}'.format(self.index)
