@@ -11,22 +11,15 @@ from .models import Index, Post
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.get(pk=pk)
-
     post_list = index.post_set.all()
-
     paginator = Paginator(post_list, 1)
-
     page = request.GET.get('page')
-
     try:
       post = paginator.page(page)
     except PageNotAnInteger:
       post = paginator.page(1)
     except EmptyPage:
       post = paginator.page(paginator.num_pages)
-
-
-    # blog_post = paginator.get_page(page)
 
     context = {
             'index': index,

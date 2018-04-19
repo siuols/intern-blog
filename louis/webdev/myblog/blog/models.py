@@ -34,7 +34,6 @@ class Category(models.Model):
     def __str__(self):
         return '{}'.format(self.title)
 
-
 STATUS_CHOICES = (
     ('published', 'Published'),
     ('draft', 'Draft'),
@@ -57,3 +56,6 @@ class Post(models.Model):
 
     def __str__(self):
         return '{}'.format(self.index)
+
+    class Meta:
+        ordering = ['-id']
