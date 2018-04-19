@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from django.core.paginator import Paginator
+
 from django.db import models
 
 User = settings.AUTH_USER_MODEL
@@ -35,13 +37,14 @@ class Category(models.Model):
         return '{}'.format(self.category)
 
 
-POST_STATUS = (
+STATUS_CHOICES = (
     ('published', 'Published'),
     ('draft', 'Draft'),
     ('hidden', 'Hidden')
 )
 
 class Post(models.Model):
+    parent                  = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE)
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
     post_list               = models.ForeignKey('Index', on_delete=models.CASCADE,)
     title                   = models.CharField(max_length=120)
@@ -53,7 +56,7 @@ class Post(models.Model):
     tags                    = models.ManyToManyField(Tag)
     category                = models.ForeignKey('Category', on_delete=models.CASCADE,)
     body                    = models.TextField(max_length=1000)
-    status                  = models.CharField(max_length=9, choices=POST_STATUS, default='published',)
+    status                  = models.CharField(max_length=9, choices=STATUS_CHOICES, default='published',)
 
     def __str__(self):
         return '{}'.format(self.post_list)

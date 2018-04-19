@@ -17,6 +17,15 @@ from .models import Index, Post
 #     return render(request, 'list.html', {'contact': contacts})
 
 
+# class RetweetView(LoginRequiredMixin, View):
+#   def get(self, request, pk, *args, **kwargs):
+#     tweet = get_object_or_404(Tweet, pk=pk)
+#     if request.user.is_authenticated():
+#       new_tweet = Tweet.objects.retweet(request.user, tweet)
+#       return HttpResponseRedirect('/')
+#     return HttpResponseRedirect(tweet.get_absolute_url())
+
+
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.filter(pk=pk).order_by('-date_created')
