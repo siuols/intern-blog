@@ -43,10 +43,27 @@ STATUS_CHOICES = (
     ('hidden', 'Hidden')
 )
 
+class PostManager(models.Manager):
+    def post(self, user, post_list_obj):
+        if post_list_obj.parent:
+            og_parent = post_list_obj.parent
+        else:
+            og_parent = post_list_obj
+
+
+        qs = self.get_queryset().filter(user=user, )
+
+        obj = self.model(
+                post_list = og_parent,
+                # user = user,
+                post_id = post_list.post_id,
+            )
+        obj.save()
+        return obj
+
 class Post(models.Model):
-    parent                  = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE)
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_list               = models.ForeignKey('Index', on_delete=models.CASCADE,)
+    index                   = models.ForeignKey('Index', on_delete=models.CASCADE,)
     title                   = models.CharField(max_length=120)
     subtitle_or_caption     = models.CharField(max_length=120)
     banner_photo            = models.ImageField()
@@ -58,5 +75,19 @@ class Post(models.Model):
     body                    = models.TextField(max_length=1000)
     status                  = models.CharField(max_length=9, choices=STATUS_CHOICES, default='published',)
 
+    objects                 = PostManager()
+
     def __str__(self):
-        return '{}'.format(self.post_list)
+        return '{}'.format(self.index)
+
+    def get_parent(self):
+        the_parent = self
+        if self.index:
+            the_parent = self.index
+        return the_parent
+
+    def get_child(self):
+        index = self.get_parent()
+        qs = Post.objects.filter(index=index)
+        qs_parent = Post.objects.filter(pk=index.pk)
+        return (qs | qs_parent)

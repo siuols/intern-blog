@@ -25,16 +25,16 @@ from .models import Index, Post
 #       return HttpResponseRedirect('/')
 #     return HttpResponseRedirect(tweet.get_absolute_url())
 
-
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.filter(pk=pk).order_by('-date_created')
 
-    post_list = Post.objects.all()
+    post_list = Post.objects.post().order_by('-date_created')
 
-    paginator = Paginator(post_list, 2)
+    paginator = Paginator(post_list, 1)
 
     page = request.GET.get('page')
+
     post = paginator.get_page(page)
 
     context = {
