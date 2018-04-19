@@ -61,7 +61,7 @@ class Post(models.Model):
         ordering = ['-id']
 
 class Comment(models.Model):
-    author                  = models.CharField(max_length='120')
+    author                  = models.CharField(max_length=120)
     content                 = models.TextField()
     date_created            = models.DateTimeField(auto_now_add=True)
 

@@ -31,7 +31,7 @@ class IndexView(View):
 
 class PostView(View):
   def get(self, request, post_id, *args, **kwargs):
-      post = Post.objects.filter(id=post_id).order_by('-date_created')
+      post = Post.objects.filter(id=post_id, status='published').order_by('-date_created')
       context = {
           'object_list': post,
       }
