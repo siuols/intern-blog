@@ -25,7 +25,7 @@ class Tag(models.Model):
     date_modified           = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{}'.format(self.tag)
+        return '{}'.format(self.title)
 
 class Category(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -34,7 +34,7 @@ class Category(models.Model):
     date_modified           = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{}'.format(self.category)
+        return '{}'.format(self.title)
 
 
 STATUS_CHOICES = (
