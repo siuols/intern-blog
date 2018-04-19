@@ -13,7 +13,7 @@ from .models import Index, Post
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.get(pk=pk)
-    post_list = index.post_set.all()
+    post_list = index.post_set.filter(status__exact='published')
     paginator = Paginator(post_list, 5)
     page = request.GET.get('page')
     try:
@@ -31,7 +31,7 @@ class IndexView(View):
 
 class PostView(View):
   def get(self, request, post_id, *args, **kwargs):
-      post = Post.objects.filter(id=post_id, status='published').order_by('-date_created')
+      post = Post.objects.filter(id=post_id).order_by('-date_created')
       context = {
           'object_list': post,
       }
