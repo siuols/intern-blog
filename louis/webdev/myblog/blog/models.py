@@ -20,7 +20,7 @@ class Index(models.Model):
 
 class Tag(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
-    tag                     = models.CharField(max_length=120)
+    title                   = models.CharField(max_length=120)
     date_created            = models.DateTimeField(auto_now_add=True)
     date_modified           = models.DateTimeField(auto_now=True)
 
@@ -29,7 +29,7 @@ class Tag(models.Model):
 
 class Category(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
-    category                = models.CharField(max_length=120)
+    title                   = models.CharField(max_length=120)
     date_created            = models.DateTimeField(auto_now_add=True)
     date_modified           = models.DateTimeField(auto_now=True)
 
@@ -93,3 +93,5 @@ class Post(models.Model):
         qs = Post.objects.filter(index=index)
         qs_parent = Post.objects.filter(pk=index.pk)
         return (qs | qs_parent)
+
+
