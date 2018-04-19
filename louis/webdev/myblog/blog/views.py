@@ -8,35 +8,25 @@ from .models import Index, Post
 
 # Create your views here.
 
-# def listing(request):
-#     contact_list = Contact.objects.all()
-#     paginator = Paginator(contact_list, 25)
-
-#     page = request.GET.get('page')
-#     Contact = paginator.get_page(page)
-#     return render(request, 'list.html', {'contact': contacts})
-
-
-# class RetweetView(LoginRequiredMixin, View):
-#   def get(self, request, pk, *args, **kwargs):
-#     tweet = get_object_or_404(Tweet, pk=pk)
-#     if request.user.is_authenticated():
-#       new_tweet = Tweet.objects.retweet(request.user, tweet)
-#       return HttpResponseRedirect('/')
-#     return HttpResponseRedirect(tweet.get_absolute_url())
-
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
-    index = Index.objects.filter(pk=pk).order_by('-date_created')
+    index = Index.objects.get(pk=pk)
 
-    post = Post.objects.all()
+    post_list = index.post_set.all()
 
-    paginate_by = 1
-    paginator = Paginator(post, 1)
+    paginator = Paginator(post_list, 1)
 
     page = request.GET.get('page')
 
-    post = paginator.get_page(page)
+    try:
+      post = paginator.page(page)
+    except PageNotAnInteger:
+      post = paginator.page(1)
+    except EmptyPage:
+      post = paginator.page(paginator.num_pages)
+
+
+    # blog_post = paginator.get_page(page)
 
     context = {
             'index': index,

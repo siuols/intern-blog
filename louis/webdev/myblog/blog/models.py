@@ -1,7 +1,5 @@
 from django.conf import settings
 
-from django.core.paginator import Paginator
-
 from django.db import models
 
 User = settings.AUTH_USER_MODEL
@@ -43,26 +41,6 @@ STATUS_CHOICES = (
     ('hidden', 'Hidden')
 )
 
-# class PostManager(models.Manager):
-#     def post(self, index_obj):
-#         if index_obj.index:
-#             og_parent = index_obj.index
-#         else:
-#             og_parent = index_obj
-
-#         qs = self.get_queryset().filter(index=og_parent)
-
-#         if qs.exits():
-#             return None
-
-#         obj = self.model(
-#                 index = og_parent,
-#                 user = user,
-#                 post_id = index_obj.index,
-#             )
-#         obj.save()
-#         return obj
-
 class Post(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
     index                   = models.ForeignKey('Index', on_delete=models.CASCADE,)
@@ -77,21 +55,5 @@ class Post(models.Model):
     body                    = models.TextField(max_length=1000)
     status                  = models.CharField(max_length=9, choices=STATUS_CHOICES, default='published',)
 
-    # objects                 = PostManager()
-
     def __str__(self):
         return '{}'.format(self.index)
-
-    def get_parent(self):
-        the_parent = self
-        if self.index:
-            the_parent = self.index
-        return the_parent
-
-    def get_child(self):
-        index = self.get_parent()
-        qs = Post.objects.filter(index=index)
-        qs_parent = Post.objects.filter(pk=index.pk)
-        return (qs | qs_parent)
-
-
