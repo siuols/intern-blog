@@ -10,10 +10,6 @@ from .models import Index, Post
 
 # Create your views here.
 
-# if User.objects.filter(email=email).exists():
-#     return HttpResponse(status=401)
-
-
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.get(pk=pk)

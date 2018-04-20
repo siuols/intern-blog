@@ -61,6 +61,7 @@ class Post(models.Model):
         ordering = ['-id']
 
 class Comment(models.Model):
+    post_title              = models.ForeignKey('Post', on_delete=models.CASCADE, null=True, blank=True)
     author                  = models.CharField(max_length=120)
     content                 = models.TextField()
     date_created            = models.DateTimeField(auto_now_add=True)
