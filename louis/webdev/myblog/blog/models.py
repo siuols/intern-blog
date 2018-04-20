@@ -55,13 +55,13 @@ class Post(models.Model):
     status                  = models.CharField(max_length=9, choices=STATUS_CHOICES, default='published',)
 
     def __str__(self):
-        return '{}'.format(self.index)
+        return '{}'.format(self.title)
 
     class Meta:
         ordering = ['-id']
 
 class Comment(models.Model):
-    post_title              = models.ForeignKey('Post', on_delete=models.CASCADE, null=True, blank=True)
+    post                    = models.ForeignKey('Post', on_delete=models.CASCADE, null=True, blank=True)
     author                  = models.CharField(max_length=120)
     content                 = models.TextField()
     date_created            = models.DateTimeField(auto_now_add=True)
