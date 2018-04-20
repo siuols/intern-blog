@@ -35,7 +35,6 @@ class IndexView(View):
           post = paginator.page(1)
       except EmptyPage:
           post = paginator.page(paginator.num_pages)
-
       context = {
             'index': index,
             'post': post,
@@ -44,16 +43,8 @@ class IndexView(View):
 
 class PostView(View):
     def get(self, request, post_id, *args, **kwargs):
-      # post = Post.objects.get(pk=post_id)
-
-      # comment = Comment.objects.all()
-
-      try:
-          post = Post.objects.get(pk=post_id, status='published')
-          comment = post.comment_set.all()
-      except Post.DoesNotExist:
-          raise Http404("Post does not exist")
-
+      post = get_object_or_404(Post, pk=post_id, status='published')
+      comment = post.comment_set.all()
       context = {
           'post': post,
           'comment': comment,

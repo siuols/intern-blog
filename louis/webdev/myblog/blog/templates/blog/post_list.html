@@ -20,10 +20,10 @@
   <p>{{ post.status }}</p>
 
   <p>commments :</p>
-  {% for comt in comment %}
-    <p>{{ comt.author }}</p>
-    <p>{{ comt.content }}</p>
-    <small>{{ comt.date_created }}</small>
+  {% for comment in comment %}
+    <p>{{ comment.author }}</p>
+    <p>{{ comment.content }}</p>
+    <small>{{ comment.date_created }}</small>
     <p>-------------------------------</p>
   {% endfor %}
 
