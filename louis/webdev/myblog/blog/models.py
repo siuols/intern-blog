@@ -44,7 +44,7 @@ class Post(models.Model):
     user                    = models.ForeignKey(User, on_delete=models.CASCADE)
     index                   = models.ForeignKey('Index', on_delete=models.CASCADE,)
     title                   = models.CharField(max_length=120)
-    subtitle_or_caption     = models.CharField(max_length=120)
+    subtitle                = models.CharField(max_length=120)
     banner_photo            = models.ImageField()
     author                  = models.CharField(max_length=120)
     date_created            = models.DateTimeField(auto_now_add=True)

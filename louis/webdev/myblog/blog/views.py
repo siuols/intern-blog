@@ -1,14 +1,26 @@
-from django.shortcuts import render, Http404, get_object_or_404
+from django.shortcuts import render, Http404, get_object_or_404, redirect
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.http import HttpResponseRedirect
 
 from django.views import View
 
 from django.contrib.auth.models import User
 
+from .forms import CommentForm
+
 from .models import Index, Post, Comment
 
 # Create your views here.
+
+class Home(View):
+    def get(self, request, *args, **kwargs):
+        index = Index.objects.all()
+        context = {
+            'index': index,
+        }
+        return render(request, "home.html", context)
 
 class IndexView(View):
     def get(self, request, pk, *args, **kwargs):
@@ -37,7 +49,7 @@ class PostView(View):
       # comment = Comment.objects.all()
 
       try:
-          post = Post.objects.get(pk=post_id)
+          post = Post.objects.get(pk=post_id, status='published')
           comment = post.comment_set.all()
       except Post.DoesNotExist:
           raise Http404("Post does not exist")
@@ -47,3 +59,17 @@ class PostView(View):
           'comment': comment,
         }
       return render(request, "blog/post_list.html", context)
+
+def comment_new(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.save()
+            return redirect('/')
+    else:
+        form = CommentForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'blog/comment.html', context)
