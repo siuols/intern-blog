@@ -1,19 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.views import View
 
+from django.contrib.auth.models import User
+
 from .models import Index, Post
 
 # Create your views here.
 
-# BookInstance.objects.filter(status__exact='o').order_by('due_back')
+# if User.objects.filter(email=email).exists():
+#     return HttpResponse(status=401)
+
 
 class IndexView(View):
   def get(self, request, pk, *args, **kwargs):
     index = Index.objects.get(pk=pk)
-    post_list = index.post_set.filter(status__exact='published')
+
+    post_list = index.post_set.filter(status='published')
+
+
     paginator = Paginator(post_list, 5)
     page = request.GET.get('page')
     try:
@@ -24,15 +31,21 @@ class IndexView(View):
       post = paginator.page(paginator.num_pages)
 
     context = {
-            'index': index,
-            'post': post,
+        'index': index,
+        'post': post,
       }
     return render(request, "blog/index.html", context)
 
 class PostView(View):
   def get(self, request, post_id, *args, **kwargs):
-      post = Post.objects.filter(id=post_id).order_by('-date_created')
-      context = {
-          'object_list': post,
+    post = Post.objects.all()
+
+    try:
+      post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+      raise Http404("Post does not exist")
+
+    context = {
+        'post': post,
       }
-      return render(request, "blog/post_list.html", context)
+    return render(request, "blog/post_list.html", context)
