@@ -24,7 +24,6 @@ class Home(View):
 
 class IndexView(View):
     def get(self, request, pk, *args, **kwargs):
-      # index = Index.objects.get(pk=pk)
       index = get_object_or_404(Index, pk=pk)
       post_list = index.post_set.filter(status='published')
       paginator = Paginator(post_list, 5)
@@ -64,3 +63,11 @@ def comment_new(request):
         'form': form,
     }
     return render(request, 'blog/comment.html', context)
+
+def post_draft(request):
+        post = Post.objects.filter(status='draft')
+
+        context = {
+            'post': post,
+        }
+        return render(request, 'blog/post_draft.html', context)
